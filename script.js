@@ -1,8 +1,25 @@
-const resultText = document.querySelector(".result");
-const buttons = document.querySelectorAll(".btn");
+const compResult = document.querySelector(".comp.result");
+const playerResult = document.querySelector(".player.result");
+const playerButtons = document.querySelectorAll(".btn.player");
+const playerScoreTag = document.querySelector(".player");
+const computerScoreTag = document.querySelector(".computer");
+const tieDisplayTag = document.querySelector(".tie");
+const compButtons = document.querySelectorAll(".btn.comp");
+const restartButton = document.querySelector(".restart");
 
 let computerScore = 0;
 let playerScore = 0;
+
+restartButton.addEventListener('click', (event) => {
+    console.log(event);
+    computerScore = 0;
+    playerScore = 0;
+    computerScoreTag.innerText = computerScore;
+    playerScoreTag.innerText = playerScore;
+    tieDisplayTag.innerText = "";
+    restartButton.style.visibility = "hidden";
+    startGame();
+});
 
 function playRound(playerSelection, computerSelection) {
     if (playerSelection === "ROCK") {
@@ -22,7 +39,7 @@ function playRound(playerSelection, computerSelection) {
             return "player wins";
         }
     } else {
-        if (computerSelection === "SCISSORS") {
+        if (computerSelection == "SCISSORS") {
             return "tie";
         } else if (computerSelection === "ROCK") {
             return "computer wins";
@@ -41,32 +58,55 @@ function computerPlay() {
 
 function game(event) {
     let computerSelection = computerPlay();
-    let playerSelection = event.target.innerText.toUpperCase();
+    let text = event.target.innerText;
+    let playerSelection = text.toUpperCase().slice(0, text.length - 2).trim();
     let result = playRound(playerSelection, computerSelection);
+
+    compButtons.forEach(btn => {
+        btn.style.border = "2px solid aliceblue";
+        if (btn.classList.contains(computerSelection.toLowerCase())) {
+            btn.style.border = "2px solid yellow";
+        }
+    })
 
     if (result === "computer wins") {
         computerScore++;
-        resultText.innerText = "computer " + computerScore;
+        computerScoreTag.innerText = computerScore;
     } else if (result === "player wins") {
         playerScore++;
-        resultText.innerText = "player " + playerScore;
+        playerScoreTag.innerText = playerScore;
     } else {
-        resultText.innerText = "tie";
+        tieDisplayTag.innerText = "Tie round";
+        setTimeout(() => {
+            tieDisplayTag.innerText = "";
+        }, 500); // in css also 1s
     }
 
+    checkScore(computerScore, playerScore);
+}
+
+function checkScore(computerScore, playerScore) {
     if (computerScore === 5 || playerScore === 5) {
-        console.log("done");
+        playerButtons.forEach(btn => {
+            btn.removeEventListener('click', game);
+        });
 
         if (computerScore === playerScore) {
-            resultText.innerText = "game tie";
+            tieDisplayTag.innerText = "Tie Game";
         } else if (computerScore > playerScore) {
-            resultText.innerText = "computer wins";
+            tieDisplayTag.innerText = "COMPUTER WINS!!!";
+            restartButton.style.visibility = "visible";
         } else {
-            resultText.innerText = "player wins";
+            tieDisplayTag.innerText = "PLAYER WINS!!!";
+            restartButton.style.visibility = "visible";
         }
     }
 }
 
-buttons.forEach(btn => {
-    btn.addEventListener('click', game);
-});
+function startGame() {
+    playerButtons.forEach(btn => {
+        btn.addEventListener('click', game);
+    });
+}
+
+startGame();

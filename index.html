@@ -4,31 +4,46 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
-    <title>Number guessing game</title>
+    <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"
+        integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous" />
     <script src="./script.js" defer></script>
 </head>
 
 <body>
     <main>
-        <div>
-            <h2 class="result">hello</h2>
-    
+        <div class="box">
+            <h2>Computer Selection</h2>
             <div class="buttons-container">
-                <button class="btn">rock</button>
-                <button class="btn">paper</button>
-                <button class="btn">scissors</button>
+                <button class="btn comp rock">rock 🪨</button>
+                <button class="btn comp paper">paper 🧻</button>
+                <button class="btn comp scissors">scissors ✂️</button>
             </div>
         </div>
 
         <div class="scores">
             <div class="score">
-                <kbd>0</kbd>
+                <kbd class="player">0</kbd>
+                <p>Player</p>
+            </div>
+            <div class="tieandrestart">
+                <p class="tie"></p>
+                <span class="restart"><i class="fas fa-redo"></i></span>
             </div>
             <div class="score">
-                <kbd>0</kbd>
+                <kbd class="computer">0</kbd>
+                <p>Computer</p>
             </div>
         </div>
-
+        
+        <div class="box">
+            <div class="buttons-container">
+                <button class="btn player">rock 🪨</button>
+                <button class="btn player">paper 🧻</button>
+                <button class="btn player">scissors ✂️</button>
+            </div>
+            <h2 class="result">Player Selection</h2>
+        </div>
     </main>
 
 
