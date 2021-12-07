@@ -1,3 +1,9 @@
+const resultText = document.querySelector(".result");
+const buttons = document.querySelectorAll(".btn");
+
+let computerScore = 0;
+let playerScore = 0;
+
 function playRound(playerSelection, computerSelection) {
     if (playerSelection === "ROCK") {
         if (computerSelection === "ROCK") {
@@ -10,7 +16,7 @@ function playRound(playerSelection, computerSelection) {
     } else if (playerSelection === "PAPER") {
         if (computerSelection === "PAPER") {
             return "tie";
-        } else if(computerSelection === "SCISSORS") {
+        } else if (computerSelection === "SCISSORS") {
             return "computer wins";
         } else {
             return "player wins";
@@ -33,32 +39,34 @@ function computerPlay() {
     else return "SCISSORS";
 }
 
-function game() {
-    let computerScore = 0;
-    let playerScore = 0;
+function game(event) {
+    let computerSelection = computerPlay();
+    let playerSelection = event.target.innerText.toUpperCase();
+    let result = playRound(playerSelection, computerSelection);
 
-    for (let i = 0; i < 5; i++){
-        let computerSelection = computerPlay();
-        let playerSelection = prompt("rock paper or scissors?").toUpperCase();
-        let result = playRound(playerSelection, computerSelection);
-        
-        if (result === "computer wins") {
-            computerScore++;
-        } else if (result === "player wins") {
-            playerScore++;
+    if (result === "computer wins") {
+        computerScore++;
+        resultText.innerText = "computer " + computerScore;
+    } else if (result === "player wins") {
+        playerScore++;
+        resultText.innerText = "player " + playerScore;
+    } else {
+        resultText.innerText = "tie";
+    }
+
+    if (computerScore === 5 || playerScore === 5) {
+        console.log("done");
+
+        if (computerScore === playerScore) {
+            resultText.innerText = "game tie";
+        } else if (computerScore > playerScore) {
+            resultText.innerText = "computer wins";
         } else {
-            continue;
+            resultText.innerText = "player wins";
         }
     }
-    
-    if (computerScore === playerScore) {
-        console.log("game tie");
-    } else if (computerScore > playerScore) {
-        console.log("computer wins");
-    } else {
-        console.log("player wins");
-    }
-    
 }
 
-game();
+buttons.forEach(btn => {
+    btn.addEventListener('click', game);
+});

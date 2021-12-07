@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500&family=Ubuntu:wght@300&display=swap');
+
+*{
+    outline: 1px solid red;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Open Sans';
+}
+
+main{
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.buttons-container{
+    width: 15vw;
+    display: flex;
+    justify-content: space-around;
+}
+
+.btn{
+    font-family: inherit;
+}
+
+.scores{
+    display: flex;
+    justify-content: space-around;
+}
